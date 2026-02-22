@@ -139,3 +139,4 @@ Not Found
 - La API no requiere autenticación, por lo que los escenarios de 401/403 se simulan conceptualmente.
 - Todos los recursos siguen el patrón RESTful: `/api/v2/{recurso}` y `/api/v2/{recurso}/{id|nombre}`.
 - La paginación utiliza los parámetros `limit` y `offset`, y los campos `next` / `previous` en la respuesta facilitan la navegación entre páginas.
+- En el directorio /screenshots está la evidencia que respalda lo que se detalla en este reporte 
