@@ -1,0 +1,265 @@
+{
+  "info": {
+    "name": "Lab3 - PokéAPI Collections",
+    "_postman_id": "lab3-pokeapi-collection",
+    "description": "Laboratorio #3 - Sistemas y Tecnologías Web - UVG 2026",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Happy Path",
+      "item": [
+        {
+          "name": "1. Listar recurso principal (Pokémon)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseURL}}/{{resource}}?limit={{limit}}&offset={{offset}}",
+              "host": ["{{baseURL}}"],
+              "path": ["{{resource}}"],
+              "query": [
+                { "key": "limit", "value": "{{limit}}" },
+                { "key": "offset", "value": "{{offset}}" }
+              ]
+            },
+            "description": "Lista todos los Pokémon con paginación. Status esperado: 200 OK"
+          },
+          "response": []
+        },
+        {
+          "name": "2. Detalle por ID (Pokémon #1 - Bulbasaur)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseURL}}/{{resource}}/{{id}}",
+              "host": ["{{baseURL}}"],
+              "path": ["{{resource}}", "{{id}}"]
+            },
+            "description": "Obtiene el detalle de un Pokémon por ID. Status esperado: 200 OK"
+          },
+          "response": []
+        },
+        {
+          "name": "3. Búsqueda por nombre (Pikachu)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseURL}}/{{resource}}/{{query}}",
+              "host": ["{{baseURL}}"],
+              "path": ["{{resource}}", "{{query}}"]
+            },
+            "description": "Busca un Pokémon por nombre. Status esperado: 200 OK"
+          },
+          "response": []
+        },
+        {
+          "name": "4. Filtro avanzado - Pokémon por tipo (Fire)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseURL}}/type/fire",
+              "host": ["{{baseURL}}"],
+              "path": ["type", "fire"]
+            },
+            "description": "Filtra Pokémon por tipo. Status esperado: 200 OK"
+          },
+          "response": []
+        },
+        {
+          "name": "5. Paginación - Segunda página de Pokémon",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseURL}}/{{resource}}?limit={{limit}}&offset=10",
+              "host": ["{{baseURL}}"],
+              "path": ["{{resource}}"],
+              "query": [
+                { "key": "limit", "value": "{{limit}}" },
+                { "key": "offset", "value": "10" }
+              ]
+            },
+            "description": "Obtiene la segunda página de Pokémon (offset=10). Status esperado: 200 OK"
+          },
+          "response": []
+        },
+        {
+          "name": "6. Segundo recurso - Listar Habilidades (Abilities)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseURL}}/ability?limit={{limit}}&offset={{offset}}",
+              "host": ["{{baseURL}}"],
+              "path": ["ability"],
+              "query": [
+                { "key": "limit", "value": "{{limit}}" },
+                { "key": "offset", "value": "{{offset}}" }
+              ]
+            },
+            "description": "Lista las habilidades disponibles (segundo recurso). Status esperado: 200 OK"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Errores Intencionales",
+      "item": [
+        {
+          "name": "404 - Pokémon no encontrado",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseURL}}/pokemon/pokemon-inexistente-99999",
+              "host": ["{{baseURL}}"],
+              "path": ["pokemon", "pokemon-inexistente-99999"]
+            },
+            "description": "Intenta obtener un Pokémon que no existe. Status esperado: 404 Not Found"
+          },
+          "response": []
+        },
+        {
+          "name": "400 - Bad Request (parámetro inválido)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseURL}}/pokemon?limit=-1&offset=abc",
+              "host": ["{{baseURL}}"],
+              "path": ["pokemon"],
+              "query": [
+                { "key": "limit", "value": "-1" },
+                { "key": "offset", "value": "abc" }
+              ]
+            },
+            "description": "Parámetros de paginación inválidos. Status esperado: 400 Bad Request"
+          },
+          "response": []
+        },
+        {
+          "name": "401 - No Autorizado (endpoint protegido simulado)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer token_invalido_12345" }
+            ],
+            "url": {
+              "raw": "{{baseURL}}/pokemon/1",
+              "host": ["{{baseURL}}"],
+              "path": ["pokemon", "1"]
+            },
+            "description": "Simula petición con token inválido. PokéAPI no requiere auth, pero este request demuestra el header incorrecto. En APIs con auth, retornaría 401."
+          },
+          "response": []
+        },
+        {
+          "name": "403 - Recurso prohibido (endpoint incorrecto)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer fake_token" }
+            ],
+            "url": {
+              "raw": "{{baseURL}}/admin/users",
+              "host": ["{{baseURL}}"],
+              "path": ["admin", "users"]
+            },
+            "description": "Intenta acceder a un recurso administrativo no existente. Status esperado: 404 (simula 403 en APIs con permisos)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Solicitud Real - Buscar equipo Pokémon",
+      "item": [
+        {
+          "name": "Paso 1: Obtener datos de Charizard",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "User-Agent", "value": "PostmanLab3/1.0" }
+            ],
+            "url": {
+              "raw": "{{baseURL}}/pokemon/charizard",
+              "host": ["{{baseURL}}"],
+              "path": ["pokemon", "charizard"]
+            },
+            "description": "Obtiene estadísticas completas de Charizard para armar un equipo competitivo."
+          },
+          "response": []
+        },
+        {
+          "name": "Paso 2: Obtener habilidad Blaze de Charizard",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "User-Agent", "value": "PostmanLab3/1.0" }
+            ],
+            "url": {
+              "raw": "{{baseURL}}/ability/blaze",
+              "host": ["{{baseURL}}"],
+              "path": ["ability", "blaze"]
+            },
+            "description": "Detalle de la habilidad Blaze (Llamarada) de Charizard."
+          },
+          "response": []
+        },
+        {
+          "name": "Paso 3: Consultar tipo Dragon",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "User-Agent", "value": "PostmanLab3/1.0" }
+            ],
+            "url": {
+              "raw": "{{baseURL}}/type/dragon",
+              "host": ["{{baseURL}}"],
+              "path": ["type", "dragon"]
+            },
+            "description": "Consulta resistencias y debilidades del tipo Dragón para análisis competitivo."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

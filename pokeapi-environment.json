@@ -1,0 +1,51 @@
+{
+  "id": "lab3-pokeapi-env",
+  "name": "Lab3 - PokéAPI Environment",
+  "values": [
+    {
+      "key": "baseURL",
+      "value": "https://pokeapi.co/api/v2",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "resource",
+      "value": "pokemon",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "id",
+      "value": "1",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "query",
+      "value": "pikachu",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "apikey",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "limit",
+      "value": "10",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "offset",
+      "value": "0",
+      "type": "default",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2026-02-21T00:00:00.000Z",
+  "_postman_exported_using": "Postman/10.0.0"
+}
